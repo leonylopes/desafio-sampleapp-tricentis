@@ -1,17 +1,17 @@
 import {Given as Dado, When as Quando, Then as Entao } from "cypress-cucumber-preprocessor/steps";
-import vehicleDataPO from "../pageObjects/enterVehicleDataPage";
-import insurantDataPO from "../pageObjects/enterInsurantDataPage";
-import productDataPO from "../pageObjects/enterProductDataPage";
-import selectOptionPO from "../pageObjects/selectPriceOptionPage";
-import sendQuotePO from "../pageObjects/sendQuotePage";
+import vehicleData_Page from "../page_objects/enterVehicleData_page";
+import insurantData_Page from "../page_objects/enterInsurantData_page";
+import productData_Page from "../page_objects/enterProductData_page";
+import selectOption_Page from "../page_objects/selectPriceOption_page";
+import sendQuote_Page from "../page_objects/sendQuote_page";
 
 const url = Cypress.config('baseUrlAutomationInsurance');
 
-const vehicleData = new vehicleDataPO;
-const insurantData = new insurantDataPO;
-const productData = new productDataPO;
-const selectOption = new selectOptionPO;
-const sendQuote = new sendQuotePO;
+const vehicleData = new vehicleData_Page;
+const insurantData = new insurantData_Page;
+const productData = new productData_Page;
+const selectOption = new selectOption_Page;
+const sendQuote = new sendQuote_Page;
 
 
 Dado('que eu esteja na página Automobile Insurance', () => {
@@ -68,6 +68,6 @@ Quando('preencho o formulário Send Quote clicando no botão Send', () => {
     sendQuote.clicarBotaoSend();
 });
 
-Entao('devo validar a mensagem {string} exibida na tela', (string) => {
-    sendQuote.validarMensagemSucesso(string);
+Entao('devo validar a mensagem de sucesso exibida na tela', () => {
+    sendQuote.validarMensagemSucesso();
 });

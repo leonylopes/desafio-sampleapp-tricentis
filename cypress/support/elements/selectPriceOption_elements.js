@@ -1,6 +1,6 @@
-class selectOptionElements {
+class selectOption_elements {
     priceOptionField = () => { return '#selectgold' };
     nextButton = () => { return '#nextsendquote'};
 };
 
-export default selectOptionElements;
+export default selectOption_elements;

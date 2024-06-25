@@ -1,4 +1,4 @@
-class enterInsurantDataElements {
+class enterInsurantData_elements {
 
     firstNameField = () => { return '#firstname' };
     lastNameField = () => { return '#lastname' };
@@ -12,4 +12,4 @@ class enterInsurantDataElements {
 
 };
 
-export default enterInsurantDataElements;
+export default enterInsurantData_elements;

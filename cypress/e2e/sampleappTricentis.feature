@@ -9,4 +9,4 @@ Funcionalidade: Sampleapp Tricentis
             E preencho o formulário Enter Product Data
             Quando seleciono a opção desejada clicando no botão Next
             E preencho o formulário Send Quote clicando no botão Send
-            Então devo validar a mensagem "Sending e-mail success!" exibida na tela
+            Então devo validar a mensagem de sucesso exibida na tela

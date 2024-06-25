@@ -1,10 +1,10 @@
-import enterInsurantDataElements from "../elements/enterInsurantDataElements";
+import enterInsurantData_elements from "../elements/enterInsurantData_elements";
 
-const insurantData = new enterInsurantDataElements;
+const insurantData = new enterInsurantData_elements;
 
 const dados = require('../../fixtures/EnterInsurantData.json')
 
-class insurantDataPO {
+class insurantData_Page {
 
     preencherCampoFirstName(){
         cy.get(insurantData.firstNameField()).should('exist').type(dados.firstNameField);
@@ -45,4 +45,4 @@ class insurantDataPO {
 
 };
 
-export default insurantDataPO;
+export default insurantData_Page;

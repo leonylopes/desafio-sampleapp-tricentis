@@ -1,4 +1,4 @@
-class sendQuoteElements {
+class sendQuote_elements {
 
     emailField = () => { return '#email' };
     phoneField = () => { return '#phone' };
@@ -9,4 +9,4 @@ class sendQuoteElements {
     successMessage = () => { return '//h2' };
 };
 
-export default sendQuoteElements;
+export default sendQuote_elements;

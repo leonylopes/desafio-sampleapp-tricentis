@@ -1,10 +1,10 @@
-import enterProductDataElements from "../elements/enterProductDataElements";
+import enterProductData_elements from "../elements/enterProductData_elements";
 
-const productData = new enterProductDataElements;
+const productData = new enterProductData_elements;
 
 const dados = require('../../fixtures/EnterProductData.json')
 
-class productDataPO {
+class productData_Page {
 
     preencherCampoStartDate(){
         cy.get(productData.startDateField()).should('exist').type(dados.startDateField);
@@ -39,4 +39,4 @@ class productDataPO {
 
 };
 
-export default productDataPO;
+export default productData_Page;

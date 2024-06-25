@@ -1,4 +1,4 @@
-class enterVehicleDataElements {
+class enterVehicleData_elements {
 
         autoMobileMenu = () => { return '//div[@class="main-navigation"]//a[@id="nav_automobile"]' };
         makeField = () => { return '#make' };
@@ -14,4 +14,4 @@ class enterVehicleDataElements {
 
 };
 
-export default enterVehicleDataElements;
+export default enterVehicleData_elements;

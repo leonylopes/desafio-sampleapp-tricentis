@@ -1,10 +1,10 @@
-import enterVehicleDataElements from "../elements/enterVehicleDataElements";
+import enterVehicleData_elements from "../elements/enterVehicleData_elements";
 
-const vehicleData = new enterVehicleDataElements;
+const vehicleData = new enterVehicleData_elements;
 
 const dados = require('../../fixtures/EnterVehicleData.json')
 
-class vehicleDataPO {
+class vehicleData_Page {
 
     selectAutomobile(){
         cy.xpath(vehicleData.autoMobileMenu()).click();
@@ -49,4 +49,4 @@ class vehicleDataPO {
 
 };
 
-export default vehicleDataPO;
+export default vehicleData_Page;

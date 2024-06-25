@@ -1,10 +1,10 @@
-import sendQuoteElements from "../elements/sendQuoteElements";
+import sendQuote_elements from "../elements/sendQuote_elements";
 
-const sendQuote = new sendQuoteElements;
+const sendQuote = new sendQuote_elements;
 
 const dados = require('../../fixtures/SendQuote.json')
 
-class sendQuotePO {
+class sendQuote_Page {
 
     preencherCampoEmail(){
         cy.get(sendQuote.emailField()).should('exist').type(dados.emailField);
@@ -42,4 +42,4 @@ class sendQuotePO {
 
 };
 
-export default sendQuotePO;
+export default sendQuote_Page;

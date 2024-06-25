@@ -1,4 +1,4 @@
-class enterProductDataElements {
+class enterProductData_elements {
     startDateField = () => { return '#startdate' };
     insuranceSumField = () => { return '#insurancesum' };
     meritRatingField = () => { return '#meritrating' };
@@ -8,4 +8,4 @@ class enterProductDataElements {
     nextButton = () => { return '#nextselectpriceoption' };
 };
 
-export default enterProductDataElements;
+export default enterProductData_elements;

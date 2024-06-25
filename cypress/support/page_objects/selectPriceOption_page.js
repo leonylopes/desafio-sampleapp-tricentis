@@ -1,9 +1,9 @@
-import selectOptionElements from "../elements/selectPriceOptionElements";
+import selectOption_elements from "../elements/selectPriceOption_elements";
 
-const selectOption = new selectOptionElements;
+const selectOption = new selectOption_elements;
 
 
-class selectOptionPO {
+class selectOption_Page {
 
     selecionarPriceOption(){
         cy.get(selectOption.priceOptionField()).should('exist').click({ force: true }).should('be.checked');
@@ -15,4 +15,4 @@ class selectOptionPO {
 
 };
 
-export default selectOptionPO;
+export default selectOption_Page;
