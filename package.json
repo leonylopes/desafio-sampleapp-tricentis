@@ -1,5 +1,5 @@
 {
-  "name": "projeto1",
+  "name": "sampleapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -8,7 +8,7 @@
     "cypress:open": "npx cypress open"
   },
   "keywords": [],
-  "author": "",
+  "author": "Leony Lopes",
   "license": "ISC",
   "devDependencies": {
     "cypress": "^13.0.0",
