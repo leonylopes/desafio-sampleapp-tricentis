@@ -25,13 +25,11 @@ Após clonar o projeto, siga as instruções abaixo:
 **1**. Abra o terminal e navegue até a pasta do projeto.
 **2**. Execute o seguinte comando para instalar as dependências do projeto:
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
 **3**. Verifique se a pasta `node_modules` foi criada após a execução do comando acima.
-
----
 
 ### 🗓️ Atualizando a Data
 
@@ -57,8 +55,6 @@ npx cypress open
 - Em seguida, escolha o navegador para execução.
 - Por fim, selecione o arquivo `.feature` que deseja testar.
 
----
-
 ## 🏃‍♂️ Rodando os Testes no Terminal
 
 Se preferir rodar os testes diretamente pelo terminal, utilize o seguinte comando:
@@ -73,7 +69,4 @@ npm run cypress
 
 Sinta-se à vontade para contribuir com melhorias! 
 
----
-
 👨‍💻 Boa sorte e divirta-se testando! 🎉
-```
