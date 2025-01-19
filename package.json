@@ -14,5 +14,8 @@
     "cypress": "^13.0.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-xpath": "^2.0.1"
+  },
+  "dependencies": {
+    "sampleapp": "file:"
   }
 }
