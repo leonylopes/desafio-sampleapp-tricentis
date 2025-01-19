@@ -23,6 +23,7 @@ git clone https://github.com/leonylopes/desafio-sampleapp-tricentis.git
 Após clonar o projeto, siga as instruções abaixo:
 
 **1**. Abra o terminal e navegue até a pasta do projeto.
+
 **2**. Execute o seguinte comando para instalar as dependências do projeto:
 
 ```bash
@@ -39,7 +40,9 @@ Para atualizar a data no campo `startDateField` no arquivo `EnterProductData.jso
 node cypress/support/createAndUpdateJson.js
 ```
 
-Verifique se a data foi atualizada no seguinte caminho: `cypress/fixtures/EnterProductData.json`. **Lembre-se**: A data precisa ter pelo menos um mês à frente a partir da data atual.
+Verifique se a data foi atualizada no seguinte caminho: `cypress/fixtures/EnterProductData.json`. 
+
+**Lembre-se**: A data precisa ter pelo menos um mês à frente a partir da data atual.
 
 ---
 
