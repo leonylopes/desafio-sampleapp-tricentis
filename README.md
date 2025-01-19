@@ -52,6 +52,55 @@ Verifique se a data foi atualizada no seguinte caminho: `cypress/fixtures/EnterP
 
 ---
 
+## 🔧 Estrutura de Pastas do Projeto
+
+Este projeto utiliza o Cypress para testes automatizados. Abaixo está a estrutura de pastas e arquivos organizados para facilitar a manutenção e escalabilidade do projeto.
+
+## Estrutura
+
+```plaintext
+cypress/
+│
+├── e2e/
+│   └── sampleappTricentis.feature
+│
+├── fixtures/
+│   ├── EnterInsurantData.json
+│   ├── EnterProductData.json
+│   ├── EnterVehicleData.json
+│   └── SendQuote.json
+│
+├── support/
+│   ├── elements/
+│   │   ├── enterInsurantData_elements.js
+│   │   ├── enterProductData_elements.js
+│   │   ├── enterVehicleData_elements.js
+│   │   ├── selectPriceOption_elements.js
+│   │   └── sendQuote_elements.js
+│   │
+│   ├── pages/
+│   │   ├── enterInsurantData_page.js
+│   │   ├── enterProductData_page.js
+│   │   ├── enterVehicleData_page.js
+│   │   ├── selectPriceOption_page.js
+│   │   └── sendQuote_page.js
+│   │
+│   └── step_definitions/
+│       ├── commands.js
+│       ├── createAndUpdateJson.js
+│       └── e2e.js
+│
+├── node_modules/
+│
+├── .gitignore
+├── cypress.config.js
+├── package-lock.json
+├── package.json
+└── README.md
+```
+
+---
+
 ## 🖥️ Executando pela Interface
 
 Para executar os testes pela interface, utilize o comando:
