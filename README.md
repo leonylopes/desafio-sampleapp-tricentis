@@ -4,7 +4,9 @@ Bem-vindo ao projeto Desafio Sample App Tricentis! Este repositório contém as 
 
 ## 📦 Pré-requisitos
 
-Para executar este projeto, você precisará ter o **Node.js** instalado. Caso não tenha, você pode baixá-lo facilmente em [nodejs.org](https://nodejs.org/en/).
+- Para executar este projeto, você precisará ter o **Node.js** instalado. Caso não tenha, você pode baixá-lo facilmente em [nodejs.org](https://nodejs.org/en/).
+
+- E também um editor de código, recomendo o **Visual Studio Code** (ou outra IDE). [VSCode](https://code.visualstudio.com)
 
 ---
 
@@ -22,15 +24,19 @@ git clone https://github.com/leonylopes/desafio-sampleapp-tricentis.git
 
 Após clonar o projeto, siga as instruções abaixo:
 
-**1**. Abra o terminal e navegue até a pasta do projeto.
+**1**. Abra o VS Code
 
-**2**. Execute o seguinte comando para instalar as dependências do projeto:
+**2**. Procure a pasta do projeto clonado
+
+**3**. Abra um novo terminal
+
+**4**. Execute o seguinte comando para instalar as dependências do projeto:
 
 ```bash
 npm install
 ```
 
-**3**. Verifique se a pasta `node_modules` foi criada após a execução do comando acima.
+**5**. Verifique se a pasta `node_modules` foi criada após a execução do comando acima.
 
 ### 🗓️ Atualizando a Data
 
@@ -63,7 +69,7 @@ npx cypress open
 Se preferir rodar os testes diretamente pelo terminal, utilize o seguinte comando:
 
 ```bash
-npm run cypress
+npx cypress run
 ```
 
 ---
