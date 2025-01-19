@@ -1,9 +1,9 @@
 import {Given as Dado, When as Quando, Then as Entao } from "cypress-cucumber-preprocessor/steps";
-import vehicleData_Page from "../page_objects/enterVehicleData_page";
-import insurantData_Page from "../page_objects/enterInsurantData_page";
-import productData_Page from "../page_objects/enterProductData_page";
-import selectOption_Page from "../page_objects/selectPriceOption_page";
-import sendQuote_Page from "../page_objects/sendQuote_page";
+import vehicleData_Page from "../pages/enterVehicleData_page";
+import insurantData_Page from "../pages/enterInsurantData_page";
+import productData_Page from "../pages/enterProductData_page";
+import selectOption_Page from "../pages/selectPriceOption_page";
+import sendQuote_Page from "../pages/sendQuote_page";
 
 const url = Cypress.config('baseUrlAutomationInsurance');
 
