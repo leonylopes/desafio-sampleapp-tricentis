@@ -5,12 +5,16 @@
   "main": "index.js",
   "scripts": {
     "preopen": "node cypress/support/createAndUpdateJson.js",
-    "cypress:open": "npx cypress open"
+    "cypress:open": "npx cypress open",
+    "test": "cypress run",
+    "report:generate": "allure generate allure-results --clean -o allure-report",
+    "report:open": "allure open allure-report"
   },
   "keywords": [],
   "author": "Leony Lopes",
   "license": "ISC",
   "devDependencies": {
+    "allure-cypress": "^3.2.2",
     "cypress": "^13.0.0",
     "cypress-cucumber-preprocessor": "^4.3.1",
     "cypress-xpath": "^2.0.1"

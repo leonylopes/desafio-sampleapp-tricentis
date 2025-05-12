@@ -1,4 +1,4 @@
-name: Cypress Tests
+name: Cypress Tests with Allure Report
 
 on:
   push:
@@ -22,8 +22,33 @@ jobs:
       - name: Instalar dependências
         run: npm install
 
-      - name: Executar script de atualização de data
+      - name: Atualizar JSON com data atual
         run: node cypress/support/createAndUpdateJson.js
 
-      - name: Executar testes com Cypress
-        run: npx cypress run
+      - name: Instalar Allure CLI
+        run: npm install -g allure-commandline
+
+      - name: Executar testes com Cypress + Allure
+        run: npm run test
+
+      - name: Buscar histórico do Allure (se existir)
+        run: |
+          mkdir -p allure-history
+          git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }}.git temp-gh-pages
+          cp -R temp-gh-pages/allure-history/* allure-history || true
+
+      - name: Gerar Allure Report
+        run: |
+          npm run report:generate
+          cp -R allure-history allure-report/history || true
+          cp -R allure-report allure-history
+
+      - name: Publicar Allure Report no GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+
+      - name: Adicionar link do report ao resumo
+        run: echo "🔗 [Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
