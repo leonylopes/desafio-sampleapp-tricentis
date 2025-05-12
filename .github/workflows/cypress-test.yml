@@ -20,7 +20,7 @@ jobs:
           node-version: '18'
 
       - name: Instalar dependências
-        run: npm ci
+        run: npm install
 
       - name: Atualizar JSON com data atual
         run: node cypress/support/createAndUpdateJson.js
