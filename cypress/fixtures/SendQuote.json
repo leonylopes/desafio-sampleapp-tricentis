@@ -1,9 +1,0 @@
-{
-    "emailField": "teste@teste.com",
-    "phoneField": "11111111",
-    "usernameField": "teste",
-    "passwordField": "Teste123",
-    "confirmPasswordField":"Teste123",
-    "successMessage":"Sending e-mail success!"
-  }
-  
