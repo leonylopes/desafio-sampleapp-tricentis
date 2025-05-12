@@ -20,18 +20,18 @@ jobs:
           node-version: '18'
 
       - name: Instalar dependências
-        run: npm install
+        run: npm ci
 
       - name: Atualizar JSON com data atual
         run: node cypress/support/createAndUpdateJson.js
 
+      - name: Executar testes com Cypress e Allure
+        run: npx cypress run --env allure=true
+
       - name: Instalar Allure CLI
         run: npm install -g allure-commandline
 
-      - name: Executar testes com Cypress + Allure
-        run: npm run test
-
-      - name: Buscar histórico do Allure (se existir)
+      - name: Restaurar histórico anterior do Allure (se houver)
         run: |
           mkdir -p allure-history
           git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }}.git temp-gh-pages
@@ -39,7 +39,7 @@ jobs:
 
       - name: Gerar Allure Report
         run: |
-          npm run report:generate
+          allure generate allure-results --clean -o allure-report
           cp -R allure-history allure-report/history || true
           cp -R allure-report allure-history
 
