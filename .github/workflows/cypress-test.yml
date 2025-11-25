@@ -1,89 +1,123 @@
-name: Cypress Tests with Allure Report
+name: Run Tests and Publish Allure Report
 
 on:
   push:
-    branches: [main]
-  pull_request:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  cypress-run:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout do código
-        uses: actions/checkout@v3
+      - name: Checkout repository
+      - uses: actions/checkout@v3
 
-      - name: Configurar Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: '18'
 
-      - name: Instalar dependências
+      - name: Install dependencies
         run: npm install
 
-      - name: Atualizar JSON com data atual
-        run: node cypress/support/createAndUpdateJson.js
+      - name: Run tests and generate Allure results
+        run: npm run test:allure
 
-      - name: Executar testes com Cypress e Allure
-        run: npx cypress run --env allure=true
+      # ================================
+      #   GERA NOME DO RELATÓRIO
+      # ================================
+      - name: Generate report directory name
+        id: timestamp
+        run: |
+          TS=$(date +"%Y-%m-%d_%H-%M-%S")
+          echo "REPORT_DIR=allure-report-$TS" >> $GITHUB_ENV
 
-      # 🔥 Baixa branch gh-pages para copiar histórico e manipular relatórios
-      - name: Checkout gh-pages
+      # ================================
+      #   RESTAURA HISTÓRICO MAIS RECENTE
+      # ================================
+      - name: Checkout gh-pages for history
         uses: actions/checkout@v3
         with:
           ref: gh-pages
           path: gh-pages
 
-      # 🔥 Copia o último histórico
-      - name: Copiar histórico anterior (se existir)
+      - name: Copy last history if exists
         run: |
-          if ls gh-pages/*/history >/dev/null 2>&1; then
-            LAST_HISTORY=$(find gh-pages -maxdepth 2 -type d -name history | sort | tail -n 1)
-            echo "History encontrado: $LAST_HISTORY"
+          LAST_HISTORY=$(ls -td gh-pages/allure-report-*/history 2>/dev/null | head -n 1 || true)
+
+          if [ -n "$LAST_HISTORY" ]; then
+            echo "History found: $LAST_HISTORY"
             mkdir -p allure-results/history
             cp -r "$LAST_HISTORY/"* allure-results/history/
           else
-            echo "Nenhum histórico encontrado."
+            echo "No previous history found."
           fi
 
-      - name: Instalar Allure CLI
-        run: npm install -g allure-commandline
-
-      - name: Gerar timestamp e nome da pasta
+      # ================================
+      #   GERA O RELATÓRIO FINAL (HTML)
+      # ================================
+      - name: Generate Allure Report
         run: |
-          TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
-          echo "REPORT_DIR=allure-report-$TIMESTAMP" >> $GITHUB_ENV
+          npm run allure:generate -- --clean
 
-      - name: Gerar Allure Report
+      - name: Rename generated report folder
         run: |
-          allure generate allure-results --clean -o ${{ env.REPORT_DIR }}
+          mv allure-report ${{ env.REPORT_DIR }}
 
-      # 🔥 Manter somente os 15 relatórios mais recentes
-      - name: Limpar relatórios antigos (manter apenas 15)
+      # ================================
+      #   MOVE O HISTORY PARA O LOCAL CORRETO
+      # ================================
+      - name: Move history into report
         run: |
-          cd gh-pages
-          ls -d allure-report-* | sort | head -n -15 | xargs -r rm -rf
-          cd ..
+          if [ -d allure-results/history ]; then
+            mkdir -p "${{ env.REPORT_DIR }}/history"
+            cp -r allure-results/history/* "${{ env.REPORT_DIR }}/history/"
+          fi
 
-      # 🔥 Criar index.html automático
-      - name: Criar index.html com links dos relatórios
+      # ================================
+      #   ATUALIZA INDEX.HTML
+      # ================================
+      - name: Generate index.html listing reports
         run: |
-          cd gh-pages
-          echo "<html><body><h1>Histórico de Relatórios Allure</h1><ul>" > index.html
-          for dir in $(ls -d allure-report-* | sort -r); do
-            echo "<li><a href='./$dir/'>${dir}</a></li>" >> index.html
+          echo "<html><body><h1>Allure Reports</h1><ul>" > index.html
+
+          for d in $(ls -td allure-report-*); do
+            echo "<li><a href=\"./$d/index.html\">$d</a></li>" >> index.html
           done
+
           echo "</ul></body></html>" >> index.html
-          cd ..
 
-      # 🔥 Publicar tudo no gh-pages
-      - name: Publicar Allure Report + index.html no GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
+      # ================================
+      #   MANTÉM SOMENTE OS 15 RELATÓRIOS MAIS RECENTES
+      # ================================
+      - name: Cleanup older reports, keep 15 newest
+        run: |
+          REPORTS=$(ls -td allure-report-* 2>/dev/null)
+          COUNT=0
+
+          for R in $REPORTS; do
+            COUNT=$((COUNT+1))
+            if [ $COUNT -gt 15 ]; then
+              echo "Deleting old report: $R"
+              rm -rf "$R"
+            fi
+          done
+
+      # ================================
+      #   PUBLICA NO GH-PAGES (RAIZ)
+      # ================================
+      - name: Publish to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: gh-pages
+          branch: gh-pages
+          folder: .
 
-      - name: Adicionar link do report ao resumo
-        run: echo "🔗 [Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ env.REPORT_DIR }}/)" >> $GITHUB_STEP_SUMMARY
+      # ================================
+      #   ADICIONA LINK NO SUMMARY
+      # ================================
+      - name: Add report link to summary
+        run: |
+          URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ env.REPORT_DIR }}/"
+          echo "### ✅ Allure Report Gerado" >> $GITHUB_STEP_SUMMARY
+          echo "[Clique aqui para abrir o relatório]($URL)" >> $GITHUB_STEP_SUMMARY
