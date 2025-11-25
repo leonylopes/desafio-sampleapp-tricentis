@@ -31,24 +31,22 @@ jobs:
       - name: Instalar Allure CLI
         run: npm install -g allure-commandline
 
-      - name: Restaurar histórico anterior do Allure (se houver)
+      - name: Definir pasta de destino com timestamp
         run: |
-          mkdir -p allure-history
-          git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }}.git temp-gh-pages
-          cp -R temp-gh-pages/allure-history/* allure-history || true
+          TIMESTAMP=$(date +'%Y-%m-%d_%H-%M-%S')
+          echo "REPORT_DIR=allure-report-$TIMESTAMP" >> $GITHUB_ENV
 
       - name: Gerar Allure Report
         run: |
-          allure generate allure-results --clean -o allure-report
-          cp -R allure-history allure-report/history || true
-          cp -R allure-report allure-history
+          allure generate allure-results --clean -o ${{ env.REPORT_DIR }}
 
       - name: Publicar Allure Report no GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          publish_dir: ./${{ env.REPORT_DIR }}
           publish_branch: gh-pages
+          destination_dir: ${{ env.REPORT_DIR }}
 
       - name: Adicionar link do report ao resumo
-        run: echo "🔗 [Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/)" >> $GITHUB_STEP_SUMMARY
+        run: echo "🔗 [Allure Report](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/${{ env.REPORT_DIR }}/)" >> $GITHUB_STEP_SUMMARY
