@@ -28,6 +28,23 @@ jobs:
       - name: Executar testes com Cypress e Allure
         run: npx cypress run --env allure=true
 
+      # 🔥 COPIA o histórico da build anterior
+      - name: Baixar gh-pages (último relatório)
+        uses: actions/checkout@v3
+        with:
+          ref: gh-pages
+          path: old_reports   # pasta temporária
+
+      - name: Copiar histórico anterior (se existir)
+        run: |
+          if ls old_reports/*/history >/dev/null 2>&1; then
+            LAST_HISTORY=$(find old_reports -type d -name history | sort | tail -n 1)
+            echo "History encontrado em: $LAST_HISTORY"
+            cp -r "$LAST_HISTORY" allure-results/history
+          else
+            echo "Nenhum histórico anterior encontrado."
+          fi
+
       - name: Instalar Allure CLI
         run: npm install -g allure-commandline
 
